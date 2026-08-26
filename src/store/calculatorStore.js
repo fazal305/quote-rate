@@ -160,6 +160,34 @@ export const useCalculatorStore = create()(
       loadDraft: (draft) => set({ draft }),
 
       startNewDraft: () => set({ draft: createBlankQuoteDraft() }),
+
+      /**
+       * Applies a reviewed AI Assistant suggestion in one atomic update.
+       * Feature ids are merged (union) with whatever's already selected —
+       * never silently replaced — and standard pages are only seeded if
+       * none are selected yet, so this never discards manual edits.
+       */
+      applyAiSuggestion: ({ projectTypeId, complexityId, featureIds }) =>
+        set((s) => {
+          const projectType = projectTypes.find((p) => p.id === projectTypeId)
+          const mergedFeatureIds = Array.from(new Set([...s.draft.selectedFeatureIds, ...featureIds]))
+          const selectedPages =
+            s.draft.selectedPages.length > 0
+              ? s.draft.selectedPages
+              : (projectType?.suggestedPageIds ?? []).map((pageTypeId) => ({ pageTypeId, quantity: 1 }))
+
+          return {
+            draft: {
+              ...s.draft,
+              projectTypeId,
+              complexityId,
+              isComplexityManual: true,
+              selectedFeatureIds: mergedFeatureIds,
+              selectedPages,
+              updatedAt: new Date().toISOString(),
+            },
+          }
+        }),
     }),
     {
       name: 'quoterate.calculator.draft',

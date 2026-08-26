@@ -5,6 +5,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle'
 const NAV_ITEMS = [
   { to: '/', label: 'Calculator', end: true },
   { to: '/hourly-rate', label: 'Hourly Rate' },
+  { to: '/ai', label: 'AI Assistant' },
   { to: '/compare', label: 'Compare' },
   { to: '/quotes', label: 'Quotes' },
   { to: '/settings', label: 'Settings' },

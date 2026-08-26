@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import { AppShell } from '@/components/layout/AppShell'
 import { PageHeader } from '@/components/layout/PageHeader'
+import { AIPricingAssistant } from '@/features/ai/AIPricingAssistant'
 import { CalculatorPage } from '@/features/calculator/CalculatorPage'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
 import { ClientQuotePage } from '@/features/quotes/ClientQuotePage'
@@ -22,6 +23,18 @@ function App() {
                 description="A sustainable hourly rate from your income target, costs, and realistic billable hours."
               />
               <HourlyRateCalculator />
+            </>
+          }
+        />
+        <Route
+          path="/ai"
+          element={
+            <>
+              <PageHeader
+                title="AI Pricing Assistant"
+                description="Turn a plain-language project description into a structured starting point."
+              />
+              <AIPricingAssistant />
             </>
           }
         />
