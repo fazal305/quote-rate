@@ -20,6 +20,7 @@ export const defaultBusinessProfile: BusinessProfile = {
   equipmentMonthlyUsd: 50,
   workspaceMonthlyUsd: 40,
   profitMarginPercent: 20,
+  workingHoursPerMonth: 160,
   billableHoursPerMonth: 100,
   desiredHourlyRateUsd: 20,
 }

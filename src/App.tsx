@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { AppShell } from '@/components/layout/AppShell'
+import { PageHeader } from '@/components/layout/PageHeader'
+import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function App() {
@@ -20,11 +22,13 @@ function App() {
         <Route
           path="/hourly-rate"
           element={
-            <PlaceholderPage
-              title="Hourly Rate Calculator"
-              description="Work out a sustainable hourly rate from your income target and realistic billable hours."
-              step="Arriving in Step 4"
-            />
+            <>
+              <PageHeader
+                title="Hourly Rate Calculator"
+                description="A sustainable hourly rate from your income target, costs, and realistic billable hours."
+              />
+              <HourlyRateCalculator />
+            </>
           }
         />
         <Route

@@ -11,6 +11,9 @@ export interface BusinessProfile {
   equipmentMonthlyUsd: number
   workspaceMonthlyUsd: number
   profitMarginPercent: number
+  /** Total hours you're realistically available to work in a month (before accounting for non-billable time). */
+  workingHoursPerMonth: number
+  /** Hours you can actually bill a client for — always less than working hours. */
   billableHoursPerMonth: number
   desiredHourlyRateUsd: number
 }
