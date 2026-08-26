@@ -1,5 +1,6 @@
 import { Card, CardHeader } from '@/components/ui/Card'
 import { NumberField } from '@/components/ui/NumberField'
+import { useExchangeRate } from '@/hooks/useExchangeRate'
 import { useBusinessStore } from '@/store/businessStore'
 import { formatCurrency, formatNumber, formatPercent } from '@/utils/format'
 import { calculateHourlyRate } from '@/utils/hourlyRate'
@@ -8,10 +9,11 @@ export function HourlyRateCalculator() {
   const profile = useBusinessStore((s) => s.profile)
   const currency = useBusinessStore((s) => s.currency)
   const updateProfile = useBusinessStore((s) => s.updateProfile)
+  const { usdToPkr, isLive } = useExchangeRate()
 
   const result = calculateHourlyRate(profile)
   const showPkr = currency.primaryCurrency === 'PKR' || currency.secondaryCurrency === 'PKR'
-  const toPkr = (usd) => usd * currency.fallbackUsdToPkr
+  const toPkr = (usd) => usd * usdToPkr
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px]">
@@ -135,7 +137,10 @@ export function HourlyRateCalculator() {
           </p>
           {showPkr && (
             <p className="tabular mt-1 text-sm text-(--color-ink-secondary)">
-              ≈ {formatCurrency(toPkr(result.recommendedHourlyRate), 'PKR', 0)}
+              ≈ {formatCurrency(toPkr(result.recommendedHourlyRate), 'PKR', 0)}{' '}
+              <span className="text-xs text-(--color-ink-muted)">
+                ({isLive ? 'live rate' : 'fallback rate'})
+              </span>
             </p>
           )}
 

@@ -7,6 +7,7 @@ import { CalculatorPage } from '@/features/calculator/CalculatorPage'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
 import { ClientQuotePage } from '@/features/quotes/ClientQuotePage'
 import { QuoteHistoryPage } from '@/features/quotes/QuoteHistoryPage'
+import { SettingsPage } from '@/features/settings/SettingsPage'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function App() {
@@ -53,11 +54,13 @@ function App() {
         <Route
           path="/settings"
           element={
-            <PlaceholderPage
-              title="Settings"
-              description="Your business economics, branding, and pricing configuration — all editable."
-              step="Arriving in Step 15"
-            />
+            <>
+              <PageHeader
+                title="Settings"
+                description="Your business profile, branding, currency, and quote defaults — all editable."
+              />
+              <SettingsPage />
+            </>
           }
         />
       </Routes>

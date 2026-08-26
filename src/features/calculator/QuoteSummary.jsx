@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
 import { BREAKDOWN_CATEGORY_LABELS } from '@/config/pricingConfig'
+import { useExchangeRate } from '@/hooks/useExchangeRate'
 import { useBusinessStore } from '@/store/businessStore'
 import { useCalculatorStore } from '@/store/calculatorStore'
 import { formatCurrency, formatNumber, formatPercent } from '@/utils/format'
@@ -18,10 +19,11 @@ export function QuoteSummary() {
   const businessProfile = useBusinessStore((s) => s.profile)
   const currency = useBusinessStore((s) => s.currency)
   const [showDetail, setShowDetail] = useState(false)
+  const { usdToPkr, isLive } = useExchangeRate()
 
   const result = calculatePricing(draft, businessProfile)
   const showPkr = currency.primaryCurrency === 'PKR' || currency.secondaryCurrency === 'PKR'
-  const toPkr = (usd) => usd * currency.fallbackUsdToPkr
+  const toPkr = (usd) => usd * usdToPkr
 
   return (
     <div className="space-y-4">
@@ -41,7 +43,10 @@ export function QuoteSummary() {
         </p>
         {showPkr && (
           <p className="tabular mt-1 text-sm text-(--color-ink-secondary)">
-            ≈ {formatCurrency(toPkr(result.recommendedQuote), 'PKR', 0)}
+            ≈ {formatCurrency(toPkr(result.recommendedQuote), 'PKR', 0)}{' '}
+            <span className="text-xs text-(--color-ink-muted)">
+              ({isLive ? 'live rate' : 'fallback rate'})
+            </span>
           </p>
         )}
 

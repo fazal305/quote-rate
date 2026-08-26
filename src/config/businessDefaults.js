@@ -21,6 +21,8 @@ export const defaultBusinessProfile = {
   workingHoursPerMonth: 160,
   billableHoursPerMonth: 100,
   desiredHourlyRateUsd: 20,
+  primaryCountryId: 'pakistan',
+  targetMarketCountryId: 'other',
 }
 
 export const defaultCurrencyPreferences = {
