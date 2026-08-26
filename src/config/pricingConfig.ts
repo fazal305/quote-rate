@@ -672,6 +672,21 @@ export const contingencyOptions: PricingConfig['contingencyOptions'] = [
 
 export const defaultContingencyPercent = 15
 
+/** How baseline project-setup hours split across breakdown categories. Must sum to 1. */
+export const baseHoursSplit: PricingConfig['baseHoursSplit'] = {
+  design: 0.3,
+  frontend: 0.5,
+  deployment: 0.2,
+}
+
+/** Testing/QA hours, modeled as a percentage of all other development hours rather than a flat guess. */
+export const testingPercentOfDevHours = 10
+
+export const quoteRange: PricingConfig['quoteRange'] = {
+  minimumFactor: 0.92,
+  premiumFactor: 1.2,
+}
+
 export const pricingConfig: PricingConfig = {
   projectTypes,
   complexityLevels,
@@ -686,4 +701,7 @@ export const pricingConfig: PricingConfig = {
   hostingItems,
   contingencyOptions,
   defaultContingencyPercent,
+  baseHoursSplit,
+  testingPercentOfDevHours,
+  quoteRange,
 }

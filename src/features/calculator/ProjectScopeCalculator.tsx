@@ -154,7 +154,9 @@ export function ProjectScopeCalculator() {
 
       <Card className="bg-(--color-surface-sunken)">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-medium text-(--color-ink)">Scope so far</p>
+          <p className="text-sm font-medium text-(--color-ink)">
+            Scope so far <span className="font-normal text-(--color-ink-muted)">(before QA &amp; positioning)</span>
+          </p>
           <p className="tabular text-sm text-(--color-ink-secondary)">
             {formatNumber(scope.baseHours)} base + {formatNumber(scope.pagesHours + scope.customPagesHours)} pages
             {scope.featuresHours > 0 && ` + ${formatNumber(scope.featuresHours)} features`}

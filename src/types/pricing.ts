@@ -155,6 +155,19 @@ export interface ContingencyOption {
   description: string
 }
 
+/** How the baseline project hours (setup/scaffolding) split across breakdown categories. Must sum to 1. */
+export interface BaseHoursSplit {
+  design: number
+  frontend: number
+  deployment: number
+}
+
+/** How far the Minimum/Premium tiers sit from the Recommended quote. */
+export interface QuoteRangeConfig {
+  minimumFactor: number
+  premiumFactor: number
+}
+
 export interface PricingConfig {
   projectTypes: ProjectTypeDef[]
   complexityLevels: ComplexityDef[]
@@ -169,4 +182,7 @@ export interface PricingConfig {
   hostingItems: HostingItemDef[]
   contingencyOptions: ContingencyOption[]
   defaultContingencyPercent: number
+  baseHoursSplit: BaseHoursSplit
+  testingPercentOfDevHours: number
+  quoteRange: QuoteRangeConfig
 }
