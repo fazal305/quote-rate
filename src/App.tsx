@@ -4,6 +4,7 @@ import { AppShell } from '@/components/layout/AppShell'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { CalculatorPage } from '@/features/calculator/CalculatorPage'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
+import { QuoteHistoryPage } from '@/features/quotes/QuoteHistoryPage'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function App() {
@@ -33,16 +34,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/quotes"
-          element={
-            <PlaceholderPage
-              title="Quote History"
-              description="Every saved quote — draft, sent, accepted, or expired — in one place."
-              step="Arriving in Step 9, 12"
-            />
-          }
-        />
+        <Route path="/quotes" element={<QuoteHistoryPage />} />
         <Route
           path="/settings"
           element={

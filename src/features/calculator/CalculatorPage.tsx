@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { PricingPositioning } from '@/features/calculator/PricingPositioning'
 import { ProjectScopeCalculator } from '@/features/calculator/ProjectScopeCalculator'
 import { QuoteSummary } from '@/features/calculator/QuoteSummary'
+import { QuoteBuilderPanel } from '@/features/quotes/QuoteBuilderPanel'
 
 export function CalculatorPage() {
   return (
@@ -14,6 +15,7 @@ export function CalculatorPage() {
         <div className="space-y-6">
           <ProjectScopeCalculator />
           <PricingPositioning />
+          <QuoteBuilderPanel />
         </div>
         <div className="lg:sticky lg:top-24 lg:self-start">
           <QuoteSummary />
