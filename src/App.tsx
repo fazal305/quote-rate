@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { AppShell } from '@/components/layout/AppShell'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
+import { ProjectScopeCalculator } from '@/features/calculator/ProjectScopeCalculator'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function App() {
@@ -12,11 +13,13 @@ function App() {
         <Route
           path="/"
           element={
-            <PlaceholderPage
-              title="Project Calculator"
-              description="Build a structured price estimate from project scope, features, and complexity."
-              step="Arriving in Step 5–7 (Scope, Features, Calculation Engine)"
-            />
+            <>
+              <PageHeader
+                title="Project Calculator"
+                description="Scope, features, and complexity — building a transparent, structured estimate."
+              />
+              <ProjectScopeCalculator />
+            </>
           }
         />
         <Route
