@@ -6,6 +6,7 @@ import { useExchangeRate } from '@/hooks/useExchangeRate'
 import { useBusinessStore } from '@/store/businessStore'
 import { useCalculatorStore } from '@/store/calculatorStore'
 import { formatCurrency, formatNumber, formatPercent } from '@/utils/format'
+import { CADENCE_SUFFIX, computeOptionalServices } from '@/utils/optionalServices'
 import { calculatePricing } from '@/utils/pricingEngine'
 
 const CONFIDENCE_STYLES = {
@@ -22,8 +23,10 @@ export function QuoteSummary() {
   const { usdToPkr, isLive } = useExchangeRate()
 
   const result = calculatePricing(draft, businessProfile)
+  const optional = computeOptionalServices(draft, result.effectiveHourlyRate)
   const showPkr = currency.primaryCurrency === 'PKR' || currency.secondaryCurrency === 'PKR'
   const toPkr = (usd) => usd * usdToPkr
+  const hasOptionalServices = optional.maintenance || optional.hostingItems.length > 0
 
   return (
     <div className="space-y-4">
@@ -78,6 +81,51 @@ export function QuoteSummary() {
           </div>
         </div>
       </Card>
+
+      {hasOptionalServices && (
+        <Card>
+          <p className="text-xs font-medium uppercase tracking-wide text-(--color-ink-muted)">
+            Optional Services
+          </p>
+          <p className="mb-3 mt-1 text-xs text-(--color-ink-secondary)">
+            Priced separately — not included in the quote above.
+          </p>
+          <ul className="space-y-1.5 text-sm">
+            {optional.maintenance && (
+              <li className="flex justify-between">
+                <span className="text-(--color-ink-secondary)">{optional.maintenance.label}</span>
+                <span className="tabular font-medium text-(--color-ink)">
+                  {formatCurrency(optional.maintenance.cost, 'USD', 0)}/{CADENCE_SUFFIX[optional.maintenance.cadence]}
+                </span>
+              </li>
+            )}
+            {optional.oneTimeTotal > 0 && (
+              <li className="flex justify-between">
+                <span className="text-(--color-ink-secondary)">Hosting/domain (one-time)</span>
+                <span className="tabular font-medium text-(--color-ink)">
+                  {formatCurrency(optional.oneTimeTotal, 'USD', 0)}
+                </span>
+              </li>
+            )}
+            {optional.monthlyTotal > 0 && (
+              <li className="flex justify-between">
+                <span className="text-(--color-ink-secondary)">Hosting (monthly)</span>
+                <span className="tabular font-medium text-(--color-ink)">
+                  {formatCurrency(optional.monthlyTotal, 'USD', 0)}/mo
+                </span>
+              </li>
+            )}
+            {optional.annualTotal > 0 && (
+              <li className="flex justify-between">
+                <span className="text-(--color-ink-secondary)">Hosting/domain (annual)</span>
+                <span className="tabular font-medium text-(--color-ink)">
+                  {formatCurrency(optional.annualTotal, 'USD', 0)}/yr
+                </span>
+              </li>
+            )}
+          </ul>
+        </Card>
+      )}
 
       <Card>
         <button

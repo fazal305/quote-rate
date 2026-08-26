@@ -236,6 +236,28 @@ export async function generateQuotePdf(data) {
 
   cursor.y = boxTop + boxHeight + 8
 
+  // Optional Ongoing Services
+  if (data.optionalServices.length > 0) {
+    cursor.ensureSpace(10)
+    drawLabel(doc, cursor, 'Optional Ongoing Services')
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(8)
+    doc.setTextColor(...INK_MUTED)
+    doc.text('Not included in the total above — available if you\'d like them.', MARGIN, cursor.y)
+    cursor.advance(5)
+    for (const item of data.optionalServices) {
+      const lines = doc.splitTextToSize(item, CONTENT_WIDTH - 6)
+      cursor.ensureSpace(lines.length * 5 + 1)
+      doc.setFontSize(9.5)
+      doc.setTextColor(...ACCENT)
+      doc.text('-', MARGIN, cursor.y)
+      doc.setTextColor(...INK)
+      doc.text(lines, MARGIN + 4, cursor.y)
+      cursor.advance(lines.length * 5 + 1)
+    }
+    cursor.advance(4)
+  }
+
   // Terms & Conditions
   cursor.ensureSpace(14)
   drawLabel(doc, cursor, 'Terms & Conditions')

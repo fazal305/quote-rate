@@ -39,6 +39,7 @@ export function QuoteBuilderPanel() {
         premiumQuote: pricing.premiumQuote,
         totalHours: pricing.totalHours,
         estimatedWeeksRange: pricing.estimatedWeeksRange,
+        effectiveHourlyRate: pricing.effectiveHourlyRate,
         currency: 'USD',
       },
     })

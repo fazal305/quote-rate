@@ -1,4 +1,5 @@
 import { PageHeader } from '@/components/layout/PageHeader'
+import { OptionalServices } from '@/features/calculator/OptionalServices'
 import { PricingPositioning } from '@/features/calculator/PricingPositioning'
 import { ProjectScopeCalculator } from '@/features/calculator/ProjectScopeCalculator'
 import { QuoteSummary } from '@/features/calculator/QuoteSummary'
@@ -15,6 +16,7 @@ export function CalculatorPage() {
         <div className="space-y-6">
           <ProjectScopeCalculator />
           <PricingPositioning />
+          <OptionalServices />
           <QuoteBuilderPanel />
         </div>
         <div className="lg:sticky lg:top-24 lg:self-start">

@@ -1,5 +1,6 @@
 import { pageTypes, projectTypes, revisions, features as featureCatalog } from '@/config/pricingConfig'
 import { getPaymentMilestones } from '@/utils/paymentStructure'
+import { CADENCE_SUFFIX, computeOptionalServices } from '@/utils/optionalServices'
 
 function addDays(isoDate, days) {
   const d = new Date(isoDate)
@@ -62,6 +63,22 @@ export function buildClientQuoteData(record, branding) {
   const totalIncludedRounds = revisions.includedRounds + draft.additionalRevisionRounds
   const validUntil = addDays(record.createdAt, branding.defaultValidityDays)
   const milestones = getPaymentMilestones(draft.paymentStructure, pricing.recommendedQuote)
+  const optional = computeOptionalServices(draft, pricing.effectiveHourlyRate ?? 0)
+  const optionalServices = []
+  if (optional.maintenance) {
+    optionalServices.push(
+      `${optional.maintenance.label}: ${optional.maintenance.cost.toFixed(0)} ${pricing.currency}/${CADENCE_SUFFIX[optional.maintenance.cadence]} — ${optional.maintenance.description}`,
+    )
+  }
+  for (const item of optional.oneTimeItems) {
+    optionalServices.push(`${item.label}: ${item.price} ${item.currency} one-time`)
+  }
+  for (const item of optional.monthlyItems) {
+    optionalServices.push(`${item.label}: ${item.price} ${item.currency}/month`)
+  }
+  for (const item of optional.annualItems) {
+    optionalServices.push(`${item.label}: ${item.price} ${item.currency}/year`)
+  }
 
   return {
     quoteNumber: record.quoteNumber,
@@ -87,6 +104,7 @@ export function buildClientQuoteData(record, branding) {
       currency: pricing.currency,
     },
     milestones,
+    optionalServices,
     revisionPolicy: `${totalIncludedRounds} round${totalIncludedRounds === 1 ? '' : 's'} of revisions included. Additional rounds billed at the standard hourly rate.`,
     terms: branding.defaultTermsAndConditions,
     paymentDetails: branding.paymentDetails,

@@ -124,6 +124,25 @@ export function ClientQuoteView({ data }) {
         )}
       </div>
 
+      {data.optionalServices.length > 0 && (
+        <div className="mt-8">
+          <p className="text-xs font-medium uppercase tracking-wide" style={{ color: PAPER_INK_MUTED }}>
+            Optional Ongoing Services
+          </p>
+          <p className="mt-1 text-xs" style={{ color: PAPER_INK_MUTED }}>
+            Not included in the total above — available if you'd like them.
+          </p>
+          <ul className="mt-2 space-y-1.5 text-sm">
+            {data.optionalServices.map((item) => (
+              <li key={item} className="flex gap-2">
+                <span style={{ color: PAPER_ACCENT }}>—</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="mt-8">
         <p className="text-xs font-medium uppercase tracking-wide" style={{ color: PAPER_INK_MUTED }}>
           Terms &amp; Conditions
