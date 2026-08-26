@@ -221,4 +221,24 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* Client-facing quote printing: show only the document itself, not the
+     app chrome (nav, back/print buttons) around it. */
+  @media print {
+    header,
+    .no-print {
+      display: none !important;
+    }
+
+    body {
+      background: #ffffff;
+    }
+
+    .print-area {
+      border: none !important;
+      box-shadow: none !important;
+      max-width: none !important;
+      margin: 0 !important;
+    }
+  }
 }

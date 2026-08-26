@@ -4,6 +4,7 @@ import { AppShell } from '@/components/layout/AppShell'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { CalculatorPage } from '@/features/calculator/CalculatorPage'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
+import { ClientQuotePage } from '@/features/quotes/ClientQuotePage'
 import { QuoteHistoryPage } from '@/features/quotes/QuoteHistoryPage'
 import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
@@ -35,6 +36,7 @@ function App() {
           }
         />
         <Route path="/quotes" element={<QuoteHistoryPage />} />
+        <Route path="/quotes/:id" element={<ClientQuotePage />} />
         <Route
           path="/settings"
           element={

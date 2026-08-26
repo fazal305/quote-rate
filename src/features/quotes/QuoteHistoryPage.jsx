@@ -61,6 +61,12 @@ export function QuoteHistoryPage() {
                 <p className="tabular text-sm font-semibold text-(--color-ink)">
                   {formatCurrency(q.pricing.recommendedQuote, 'USD', 0)}
                 </p>
+                <Link
+                  to={`/quotes/${q.id}`}
+                  className="rounded-(--radius-token-sm) border border-(--color-border) px-3 py-1.5 text-xs font-medium text-(--color-ink-secondary) transition-colors hover:border-(--color-border-strong) hover:text-(--color-ink)"
+                >
+                  View Quote
+                </Link>
                 <select
                   aria-label={`Status for ${q.projectTitle}`}
                   value={q.status}
