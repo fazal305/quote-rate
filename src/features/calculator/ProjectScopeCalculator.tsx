@@ -2,6 +2,7 @@ import { Card, CardHeader } from '@/components/ui/Card'
 import { RadioCardGroup } from '@/components/ui/RadioCardGroup'
 import { Stepper } from '@/components/ui/Stepper'
 import { complexityLevels, pageTypes, projectTypes } from '@/config/pricingConfig'
+import { FeatureCatalog } from '@/features/calculator/FeatureCatalog'
 import { useCalculatorStore } from '@/store/calculatorStore'
 import { formatNumber } from '@/utils/format'
 import { getScopeHoursSummary } from '@/utils/scopeHours'
@@ -148,6 +149,8 @@ export function ProjectScopeCalculator() {
           )}
         </div>
       </Card>
+
+      <FeatureCatalog />
 
       <Card className="bg-(--color-surface-sunken)">
         <div className="flex flex-wrap items-center justify-between gap-3">
