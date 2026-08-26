@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { PageHeader } from '@/components/layout/PageHeader'
 import { Card } from '@/components/ui/Card'
+import { useCalculatorStore } from '@/store/calculatorStore'
 import { QUOTE_STATUS_LABELS, useQuoteHistoryStore } from '@/store/quoteHistoryStore'
 import { formatCurrency } from '@/utils/format'
 
@@ -15,9 +16,23 @@ const STATUS_STYLES = {
 }
 
 export function QuoteHistoryPage() {
+  const navigate = useNavigate()
   const quotes = useQuoteHistoryStore((s) => s.quotes)
   const updateStatus = useQuoteHistoryStore((s) => s.updateStatus)
   const deleteQuote = useQuoteHistoryStore((s) => s.deleteQuote)
+  const duplicateQuote = useQuoteHistoryStore((s) => s.duplicateQuote)
+  const loadDraft = useCalculatorStore((s) => s.loadDraft)
+
+  const handleEdit = (q) => {
+    loadDraft(q.draft)
+    navigate('/')
+  }
+
+  const handleDelete = (q) => {
+    if (window.confirm(`Delete quote ${q.quoteNumber} for ${q.clientName}? This can't be undone.`)) {
+      deleteQuote(q.id)
+    }
+  }
 
   return (
     <>
@@ -57,8 +72,8 @@ export function QuoteHistoryPage() {
                 <p className="truncate text-xs text-(--color-ink-secondary)">{q.clientName}</p>
               </div>
 
-              <div className="flex shrink-0 items-center gap-4">
-                <p className="tabular text-sm font-semibold text-(--color-ink)">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
+                <p className="tabular mr-2 text-sm font-semibold text-(--color-ink)">
                   {formatCurrency(q.pricing.recommendedQuote, 'USD', 0)}
                 </p>
                 <Link
@@ -67,6 +82,20 @@ export function QuoteHistoryPage() {
                 >
                   View Quote
                 </Link>
+                <button
+                  type="button"
+                  onClick={() => handleEdit(q)}
+                  className="rounded-(--radius-token-sm) border border-(--color-border) px-3 py-1.5 text-xs font-medium text-(--color-ink-secondary) transition-colors hover:border-(--color-border-strong) hover:text-(--color-ink)"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => duplicateQuote(q.id)}
+                  className="rounded-(--radius-token-sm) border border-(--color-border) px-3 py-1.5 text-xs font-medium text-(--color-ink-secondary) transition-colors hover:border-(--color-border-strong) hover:text-(--color-ink)"
+                >
+                  Duplicate
+                </button>
                 <select
                   aria-label={`Status for ${q.projectTitle}`}
                   value={q.status}
@@ -81,7 +110,7 @@ export function QuoteHistoryPage() {
                 </select>
                 <button
                   type="button"
-                  onClick={() => deleteQuote(q.id)}
+                  onClick={() => handleDelete(q)}
                   aria-label={`Delete quote for ${q.projectTitle}`}
                   className="rounded-(--radius-token-sm) px-2 py-1.5 text-xs font-medium text-(--color-danger) hover:bg-(--color-danger-soft)"
                 >

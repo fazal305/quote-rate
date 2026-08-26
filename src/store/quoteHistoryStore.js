@@ -75,6 +75,26 @@ export const useQuoteHistoryStore = create()(
         })),
 
       deleteQuote: (id) => set((s) => ({ quotes: s.quotes.filter((q) => q.id !== id) })),
+
+      duplicateQuote: (id) => {
+        const source = get().quotes.find((q) => q.id === id)
+        if (!source) return null
+        const now = new Date().toISOString()
+        const sequence = get().nextQuoteSequence
+        const projectTitle = `${source.projectTitle} (Copy)`
+        const copy = {
+          ...source,
+          id: generateQuoteId(),
+          quoteNumber: formatQuoteNumber(sequence),
+          projectTitle,
+          status: 'draft',
+          createdAt: now,
+          updatedAt: now,
+          draft: { ...source.draft, projectTitle },
+        }
+        set((s) => ({ quotes: [copy, ...s.quotes], nextQuoteSequence: s.nextQuoteSequence + 1 }))
+        return copy
+      },
     }),
     {
       name: 'quoterate.quotes',
