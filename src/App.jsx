@@ -5,10 +5,10 @@ import { PageHeader } from '@/components/layout/PageHeader'
 import { AIPricingAssistant } from '@/features/ai/AIPricingAssistant'
 import { CalculatorPage } from '@/features/calculator/CalculatorPage'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
+import { ComparisonPage } from '@/features/compare/ComparisonPage'
 import { ClientQuotePage } from '@/features/quotes/ClientQuotePage'
 import { QuoteHistoryPage } from '@/features/quotes/QuoteHistoryPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
-import { PlaceholderPage } from '@/pages/PlaceholderPage'
 
 function App() {
   return (
@@ -42,11 +42,13 @@ function App() {
         <Route
           path="/compare"
           element={
-            <PlaceholderPage
-              title="Basic / Standard / Premium"
-              description="Compare three pricing tiers side by side for a client conversation."
-              step="Arriving in Step 8: Comparison Mode"
-            />
+            <>
+              <PageHeader
+                title="Basic / Standard / Premium"
+                description="Three ready-to-present scope tiers for a client conversation."
+              />
+              <ComparisonPage />
+            </>
           }
         />
         <Route path="/quotes" element={<QuoteHistoryPage />} />
