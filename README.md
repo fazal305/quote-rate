@@ -4,6 +4,10 @@ A pricing and quotation calculator for freelance web developers — turns projec
 
 QuoteRate is not a hourly-rate multiplier toy. It walks a real pipeline — base project → scope → features → complexity → experience/market positioning → urgency → contingency → a Minimum/Recommended/Premium range — and shows its work at every step, so you can explain a number to a client instead of just handing one over.
 
+## Live Demo
+
+**[quote-rate-fz17.vercel.app](https://quote-rate-fz17.vercel.app)**
+
 ## Features
 
 - **Hourly Rate Calculator** — a sustainable rate from your income target, business costs, tax, margin, and realistic billable hours (working hours ≠ billable hours).
