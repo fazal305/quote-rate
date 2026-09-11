@@ -6,6 +6,7 @@ import { AIPricingAssistant } from '@/features/ai/AIPricingAssistant'
 import { CalculatorPage } from '@/features/calculator/CalculatorPage'
 import { HourlyRateCalculator } from '@/features/calculator/HourlyRateCalculator'
 import { ComparisonPage } from '@/features/compare/ComparisonPage'
+import { NotFoundPage } from '@/features/misc/NotFoundPage'
 import { ClientQuotePage } from '@/features/quotes/ClientQuotePage'
 import { QuoteHistoryPage } from '@/features/quotes/QuoteHistoryPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
@@ -65,6 +66,7 @@ function App() {
             </>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AppShell>
   )
